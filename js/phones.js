@@ -2,16 +2,14 @@ const loadPhone = async (searchText, isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await res.json();
     const phones = data.data;
-    // console.log(phones);
     displayPhones(phones, isShowAll);
 }
 
 const displayPhones = (phones, isShowAll) => {
-    // console.log(phones);
-
 
     // Number 1: jeikhane boshabo oikhane place korsi id diye
     const phoneContainer = document.getElementById('phones-container');
+
     // Clear phone container cards before adding new cards
     phoneContainer.textContent = '';
 
@@ -25,10 +23,9 @@ const displayPhones = (phones, isShowAll) => {
     }
 
     // display only first 9 phones if there is no Show All
-    if(!isShowAll){
+    if (!isShowAll) {
         phones = phones.slice(0, 9)
     }
-    
 
     phones.forEach(phone => {
         console.log(phone);
@@ -46,29 +43,33 @@ const displayPhones = (phones, isShowAll) => {
             <h2 class="card-title">${phone.phone_name}</h2>
             <h2 class="card-title">${phone.brand}</h2>
             <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div class="card-actions justify-end">
-                <button class="btn btn-primary">Buy Now</button>
+            <div class="card-actions justify-center">
+                <button onclick="handleShowDetail('${phone.slug}')" class="btn btn-primary">Show Details</button>
             </div>
         </div>
         `
         // Number 4: child guloke apppen korte hobe
         phoneContainer.appendChild(phoneCard);
     });
-
     // Hide Loading spinner
     toggleLoadingSpinner(false);
-
-
+}
+// 
+const handleShowDetail = async (id) => {
+    // Load Single Phone Data 
+    const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
+    const data = await res.json();
+    console.log(data);
 }
 
-// Handle search button
+// Handle Search button
 const handleSearch = (isShowAll) => {
     toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     loadPhone(searchText, isShowAll);
 }
-
+// Spinner
 const toggleLoadingSpinner = (isLoading) => {
     const loadingSpinner = document.getElementById('loading-spin');
     if (isLoading) {
@@ -78,17 +79,7 @@ const toggleLoadingSpinner = (isLoading) => {
         loadingSpinner.classList.add('hidden');
     }
 }
-
-
-// Handle show all
-const handleShowAll = () =>{
+// Handle Show All Button
+const handleShowAll = () => {
     handleSearch(true);
 }
-
-
-
-
-
-
-
-// loadPhone();
