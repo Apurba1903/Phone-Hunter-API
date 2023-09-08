@@ -1,4 +1,4 @@
-const loadPhone = async (searchText, isShowAll) => {
+const loadPhone = async (searchText = '13', isShowAll) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/phones?search=${searchText}`);
     const data = await res.json();
     const phones = data.data;
@@ -28,7 +28,7 @@ const displayPhones = (phones, isShowAll) => {
     }
 
     phones.forEach(phone => {
-        console.log(phone);
+        // console.log(phone);
 
         // Number 2: div create korsi poshanor pore ei div e shob dekhabe
         const phoneCard = document.createElement('div');
@@ -59,7 +59,29 @@ const handleShowDetail = async (id) => {
     // Load Single Phone Data 
     const res = await fetch(`https://openapi.programming-hero.com/api/phone/${id}`);
     const data = await res.json();
-    console.log(data);
+    const phone = data.data;
+
+    showPhoneDetails(phone);
+}
+
+const showPhoneDetails = (phone) => {
+    console.log(phone);
+
+
+    const showDetailContainer = document.getElementById('shob_details_container');
+    showDetailContainer.innerHTML = `
+        
+        <img src="${phone.image}" alt="">
+        <h3 class="font-bold text-2xl">${phone.name}</h3>
+        <p><span class="font-bold">Storage : </span>${phone?.mainFeatures?.storage}</p>
+        <p><span class="font-bold">Display Size :  </span>${phone?.mainFeatures?.displaySize}</p>
+        <p><span class="font-bold">Chipset : </span>${phone?.mainFeatures?.chipSet}</p>
+        <p><span class="font-bold">Memory : </span>${phone?.mainFeatures?.memory}</p>
+        <p><span class="font-bold">GPS : </span>${phone?.others?.GPS || 'No GPS'}</p>
+    `
+
+    // Show the Modal
+    shob_details_modal.showModal()
 }
 
 // Handle Search button
@@ -83,3 +105,6 @@ const toggleLoadingSpinner = (isLoading) => {
 const handleShowAll = () => {
     handleSearch(true);
 }
+
+
+loadPhone();
