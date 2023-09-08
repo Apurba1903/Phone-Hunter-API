@@ -15,6 +15,19 @@ const displayPhones = phones => {
     // Clear phone container cards before adding new cards
     phoneContainer.textContent = '';
 
+    // Dispay show all button if there are more than 9 phones
+    const showAllContainer = document.getElementById('show-all-container')
+    if (phones.length > 9) {
+        showAllContainer.classList.remove('hidden');
+    }
+    else {
+        showAllContainer.classList.add('hidden');
+    }
+
+
+    // display only first 9 phones
+    phones = phones.slice(0, 9)
+
     phones.forEach(phone => {
         console.log(phone);
 
@@ -29,6 +42,7 @@ const displayPhones = phones => {
         </figure>
         <div class="card-body">
             <h2 class="card-title">${phone.phone_name}</h2>
+            <h2 class="card-title">${phone.brand}</h2>
             <p>If a dog chews shoes whose shoes does he choose?</p>
             <div class="card-actions justify-end">
                 <button class="btn btn-primary">Buy Now</button>
