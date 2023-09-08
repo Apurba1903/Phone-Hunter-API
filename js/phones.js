@@ -51,16 +51,30 @@ const displayPhones = phones => {
         `
         // Number 4: child guloke apppen korte hobe
         phoneContainer.appendChild(phoneCard);
-
     });
+
+    // Hide Loading spinner
+    toggleLoadingSpinner(false);
+
+
 }
 
 // Handle search button
 const handleSearch = () => {
+    toggleLoadingSpinner(true);
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
-    console.log(searchText);
     loadPhone(searchText);
+}
+
+const toggleLoadingSpinner = (isLoading) => {
+    const loadingSpinner = document.getElementById('loading-spin');
+    if (isLoading) {
+        loadingSpinner.classList.remove('hidden');
+    }
+    else {
+        loadingSpinner.classList.add('hidden');
+    }
 }
 
 

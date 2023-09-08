@@ -22,15 +22,18 @@
             <button onclick="handleSearch()" class="btn btn-accent">Search</button>
         </section>
 
-        <!-- Search Result -->
         <section>
-            <div id="phones-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Spinner Loading  -->
+            <div id="loading-spin" class="text-center my-40 hidden">
+                <span class="loading loading-spinner text-primary loading-lg"></span>
+            </div>
 
+            <!-- Search Result -->
+            <div id="phones-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             </div>
             <!-- Show all button -->
             <div id="show-all-container" class="hidden">
                 <button class="btn btn-warning">Show All</button>
-
             </div>
         </section>
     </main>
